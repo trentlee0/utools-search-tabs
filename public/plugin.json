@@ -1,0 +1,13 @@
+{
+  "pluginName": "搜索标签页",
+  "author": "Trent0",
+  "homepage": "https://github.com/trentlee0",
+  "description": "搜索浏览器标签页，支持 Safari、Edge、Chrome",
+  "version": "1.0.0",
+  "logo": "icon/logo.png",
+  "platform": [
+    "darwin"
+  ],
+  "preload": "preload.js",
+  "features": []
+}
