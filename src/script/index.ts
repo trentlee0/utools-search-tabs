@@ -1,4 +1,4 @@
-import {exec, execSync} from 'child_process'
+import { exec, execSync } from 'child_process'
 import * as sf from './safari'
 import * as ch from './chromium'
 

@@ -9,5 +9,111 @@
     "darwin"
   ],
   "preload": "preload.js",
-  "features": []
+  "features": [
+    {
+      "code": "search-safari-tab",
+      "icon": "icon/safari.png",
+      "explain": "搜索 Safari 标签页",
+      "cmds": [
+        "Search Safari Tabs",
+        "搜索 Safari 标签页",
+        {
+          "type": "window",
+          "label": "搜索 Safari 标签页",
+          "match": {
+            "app": [
+              "Safari.app"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "code": "search-edge-tab",
+      "icon": "icon/edge.png",
+      "explain": "搜索 Edge 标签页",
+      "cmds": [
+        "Search Edge Tabs",
+        "搜索 Edge 标签页",
+        {
+          "type": "window",
+          "label": "搜索 Edge 标签页",
+          "match": {
+            "app": [
+              "Microsoft Edge.app"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "code": "search-chrome-tab",
+      "icon": "icon/chrome.png",
+      "explain": "搜索 Chrome 标签页",
+      "cmds": [
+        "Search Chrome Tabs",
+        "搜索 Chrome 标签页",
+        {
+          "type": "window",
+          "label": "搜索 Chrome 标签页",
+          "match": {
+            "app": [
+              "Google Chrome.app"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "code": "open-safari",
+      "icon": "icon/safari.png",
+      "explain": "在 Safari 中打开当前页面",
+      "cmds": [
+        {
+          "type": "window",
+          "label": "在 Safari 中打开当前页面",
+          "match": {
+            "app": [
+              "Microsoft Edge.app",
+              "Google Chrome.app"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "code": "open-edge",
+      "icon": "icon/edge.png",
+      "explain": "在 Edge 中打开当前页面",
+      "cmds": [
+        {
+          "type": "window",
+          "label": "在 Edge 中打开当前页面",
+          "match": {
+            "app": [
+              "Safari.app",
+              "Google Chrome.app"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "code": "open-chrome",
+      "icon": "icon/chrome.png",
+      "explain": "在 Chrome 中打开当前页面",
+      "cmds": [
+        {
+          "type": "window",
+          "label": "在 Chrome 中打开当前页面",
+          "match": {
+            "app": [
+              "Safari.app",
+              "Microsoft Edge.app"
+            ]
+          }
+        }
+      ]
+    }
+  ]
 }
