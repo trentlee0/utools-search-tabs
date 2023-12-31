@@ -13,13 +13,13 @@
     {
       "code": "search-safari-tab",
       "icon": "icon/safari.png",
-      "explain": "搜索 Safari 标签页",
+      "explain": "搜索 Safari 中打开的标签页",
       "cmds": [
-        "Search Safari Tabs",
-        "搜索 Safari 标签页",
+        "Safari Search Tabs",
+        "Safari 搜索标签页",
         {
           "type": "window",
-          "label": "搜索 Safari 标签页",
+          "label": "搜索标签页",
           "match": {
             "app": [
               "Safari.app"
@@ -31,13 +31,13 @@
     {
       "code": "search-edge-tab",
       "icon": "icon/edge.png",
-      "explain": "搜索 Edge 标签页",
+      "explain": "搜索 Edge 中打开的标签页",
       "cmds": [
-        "Search Edge Tabs",
-        "搜索 Edge 标签页",
+        "Edge Search Tabs",
+        "Edge 搜索标签页",
         {
           "type": "window",
-          "label": "搜索 Edge 标签页",
+          "label": "搜索标签页",
           "match": {
             "app": [
               "Microsoft Edge.app"
@@ -49,13 +49,13 @@
     {
       "code": "search-chrome-tab",
       "icon": "icon/chrome.png",
-      "explain": "搜索 Chrome 标签页",
+      "explain": "搜索 Chrome 中打开的标签页",
       "cmds": [
-        "Search Chrome Tabs",
-        "搜索 Chrome 标签页",
+        "Chrome Search Tabs",
+        "Chrome 搜索标签页",
         {
           "type": "window",
-          "label": "搜索 Chrome 标签页",
+          "label": "搜索标签页",
           "match": {
             "app": [
               "Google Chrome.app"
@@ -110,6 +110,60 @@
             "app": [
               "Safari.app",
               "Microsoft Edge.app"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "code": "new-safari",
+      "icon": "icon/safari.png",
+      "explain": "在 Safari 中新建标签页",
+      "cmds": [
+        "Safari New Tab",
+        "Safari 新建标签页",
+        {
+          "type": "window",
+          "label": "新建标签页",
+          "match": {
+            "app": [
+              "Safari.app"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "code": "new-edge",
+      "icon": "icon/edge.png",
+      "explain": "在 Edge 中新建标签页",
+      "cmds": [
+        "Edge New Tab",
+        "Edge 新建标签页",
+        {
+          "type": "window",
+          "label": "新建标签页",
+          "match": {
+            "app": [
+              "Microsoft Edge.app"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "code": "new-chrome",
+      "icon": "icon/chrome.png",
+      "explain": "在 Chrome 中新建标签页",
+      "cmds": [
+        "Chrome New Tab",
+        "Chrome 新建标签页",
+        {
+          "type": "window",
+          "label": "新建标签页",
+          "match": {
+            "app": [
+              "Google Chrome.app"
             ]
           }
         }

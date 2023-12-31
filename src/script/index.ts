@@ -49,20 +49,25 @@ function execGetTabs(script: string, seperator: string) {
 }
 
 abstract class BrowserCommand {
-  protected SEPERATOR = '[,~,]'
+  protected SEPARATOR = '[,~,]'
 
   abstract activateTab(window: number, tab: number): void
   abstract getAllTabs(): Promise<Tab[]>
   abstract openUrl(url: string)
+  abstract newTab(): void
 }
 
 class SafariCommand extends BrowserCommand {
+  newTab(): void {
+    execAppleScript(sf.newTab())
+  }
+
   activateTab(window: number, tab: number): void {
     execAppleScript(sf.activateTabScript(window, tab))
   }
 
   getAllTabs(): Promise<Tab[]> {
-    return execGetTabs(sf.allTabsScript(this.SEPERATOR), this.SEPERATOR)
+    return execGetTabs(sf.allTabsScript(this.SEPARATOR), this.SEPARATOR)
   }
 
   openUrl(url: string) {
@@ -71,14 +76,18 @@ class SafariCommand extends BrowserCommand {
 }
 
 class EdgeCommand extends BrowserCommand {
+  newTab(): void {
+    execAppleScript(ch.newTab('Microsoft Edge'))
+  }
+
   activateTab(window: number, tab: number): void {
     execAppleScript(ch.activateTabScript('Microsoft Edge', window, tab))
   }
 
   getAllTabs(): Promise<Tab[]> {
     return execGetTabs(
-      ch.allTabsScript('Microsoft Edge', this.SEPERATOR),
-      this.SEPERATOR
+      ch.allTabsScript('Microsoft Edge', this.SEPARATOR),
+      this.SEPARATOR
     )
   }
 
@@ -88,14 +97,18 @@ class EdgeCommand extends BrowserCommand {
 }
 
 class ChromeCommand extends BrowserCommand {
+  newTab(): void {
+    execAppleScript(ch.newTab('Google Chrome'))
+  }
+
   activateTab(window: number, tab: number): void {
     execAppleScript(ch.activateTabScript('Google Chrome', window, tab))
   }
 
   getAllTabs(): Promise<Tab[]> {
     return execGetTabs(
-      ch.allTabsScript('Google Chrome', this.SEPERATOR),
-      this.SEPERATOR
+      ch.allTabsScript('Google Chrome', this.SEPARATOR),
+      this.SEPARATOR
     )
   }
 

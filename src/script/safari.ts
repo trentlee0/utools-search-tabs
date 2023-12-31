@@ -4,12 +4,12 @@ export function activateTabScript(window: number, tab: number) {
         activate
         tell window ${window}
             set current tab to tab ${tab}
-            set visible to true
+            set index to 1
         end tell
     end tell`
 }
 
-export function allTabsScript(seperator: string) {
+export function allTabsScript(separator: string) {
   return `
     set tabList to ""
     tell application "Safari"
@@ -17,7 +17,7 @@ export function allTabsScript(seperator: string) {
         repeat with w in windows
             set tabIndex to 1
             repeat with t in tabs of w
-                set tabItem to winIndex & "${seperator}" & tabIndex & "${seperator}" & (name of t) & "${seperator}" & (URL of t) & "\n"
+                set tabItem to winIndex & "${separator}" & tabIndex & "${separator}" & (name of t) & "${separator}" & (URL of t) & "\n"
                 set tabList to tabList & tabItem
                 set tabIndex to tabIndex + 1
             end repeat
@@ -25,4 +25,20 @@ export function allTabsScript(seperator: string) {
         end repeat
     end tell
     tabList`
+}
+
+export function newTab() {
+  return `
+    tell application "Safari"
+        tell window 1
+            activate
+            if the (count of tabs) is equal to 0 then
+                do shell script "open -a Safari.app"
+            else
+                set aTab to make new tab
+                set current tab to aTab
+                set index to 1
+            end if
+        end tell
+    end tell`
 }
