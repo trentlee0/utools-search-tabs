@@ -38,8 +38,11 @@ abstract class AbstractListTemplate implements MutableListTemplate {
   isInjectedCss: boolean
   placeholder = '搜索标签页，多个关键词用空格隔开'
 
+  static actionCode: string | null
+
   constructor() {
     this.isInjectedCss = false
+    AbstractListTemplate.actionCode = null
   }
 
   async enter(action: Action, render: ListRenderFunction) {
@@ -56,7 +59,10 @@ abstract class AbstractListTemplate implements MutableListTemplate {
       }
     }
     this.startLoading()
-    render(this.$list)
+    const list =
+      AbstractListTemplate.actionCode !== action.code ? [] : this.$list
+    AbstractListTemplate.actionCode = action.code
+    render(list)
 
     try {
       await this.handler(action, render)
