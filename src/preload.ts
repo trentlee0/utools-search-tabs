@@ -14,7 +14,7 @@ import * as pinyin from 'tiny-pinyin'
 import * as NProgress from 'nprogress'
 import cssInline from 'nprogress/nprogress.css?inline'
 
-NProgress.configure({ showSpinner: false })
+NProgress.configure({ showSpinner: false, speed: 350 })
 
 function getPinyin(s: string) {
   return pinyin.parse(s).map((item) => item.target)
@@ -36,15 +36,16 @@ abstract class AbstractListTemplate implements MutableListTemplate {
   abstract code: string
   $list: ListItem[]
   isInjectedCss: boolean
+  placeholder = '搜索标签页，多个关键词用空格隔开'
 
   constructor() {
     this.isInjectedCss = false
   }
 
-  enter(action: Action, render: ListRenderFunction): void {
+  async enter(action: Action, render: ListRenderFunction) {
     if (!this.isInjectedCss) {
       const id = 'my-custom-style'
-      if (!document.querySelector(id)) {
+      if (!document.getElementById(id)) {
         const s = document.createElement('style')
         s.id = id
         const css =
@@ -54,28 +55,41 @@ abstract class AbstractListTemplate implements MutableListTemplate {
         this.isInjectedCss = true
       }
     }
+    this.startLoading()
+    render(this.$list)
+
+    try {
+      await this.handler(action, render)
+    } catch (e) {
+      const err = e as Error
+      console.error(err)
+      utools.showNotification(err.message.trim().split('\n').pop())
+    } finally {
+      this.doneLoading()
+    }
   }
 
+  abstract handler(action: Action, render: ListRenderFunction): Promise<void>
+
   protected startLoading() {
-    NProgress.start()
+    NProgress.set(0.0)
+    NProgress.set(0.3)
   }
 
   protected doneLoading() {
-    NProgress.done()
+    NProgress.set(0.7)
+    NProgress.set(1.0)
   }
 
-  select(action: Action, item: ListItem) {}
+  abstract select(action: Action, item: ListItem)
 }
 
 class SafariTab extends AbstractListTemplate {
   code = 'search-safari-tab'
 
-  async enter(action: Action, render: ListRenderFunction) {
-    super.enter(action, render)
-    this.startLoading()
+  async handler(action: Action, render: ListRenderFunction) {
     const tabs = await safari.getAllTabs()
     render(tabs.map((tab) => ({ ...tab, icon: 'icon/safari.png' })))
-    this.doneLoading()
   }
 
   search(action: Action, searchWord: string, render: ListRenderFunction) {
@@ -91,12 +105,9 @@ class SafariTab extends AbstractListTemplate {
 class EdgeTab extends AbstractListTemplate {
   code = 'search-edge-tab'
 
-  async enter(action: Action, render: ListRenderFunction) {
-    super.enter(action, render)
-    this.startLoading()
+  async handler(action: Action, render: ListRenderFunction) {
     const tabs = await edge.getAllTabs()
     render(tabs.map((tab) => ({ ...tab, icon: 'icon/edge.png' })))
-    this.doneLoading()
   }
 
   search(action: Action, searchWord: string, render: ListRenderFunction) {
@@ -112,12 +123,9 @@ class EdgeTab extends AbstractListTemplate {
 class ChromeTab extends AbstractListTemplate {
   code = 'search-chrome-tab'
 
-  async enter(action: Action, render: ListRenderFunction) {
-    super.enter(action, render)
-    this.startLoading()
+  async handler(action: Action, render: ListRenderFunction) {
     const tabs = await chrome.getAllTabs()
     render(tabs.map((tab) => ({ ...tab, icon: 'icon/chrome.png' })))
-    this.doneLoading()
   }
 
   search(action: Action, searchWord: string, render: ListRenderFunction) {
@@ -196,9 +204,14 @@ function getSelectedItem(): ListItem {
 }
 
 window.addEventListener('keydown', (e) => {
-  if (e.metaKey && e.key === 'c') {
-    utools.copyText(getSelectedItem().description)
-    utools.hideMainWindow()
+  if (e.metaKey) {
+    if (e.key === 'c') {
+      utools.copyText(getSelectedItem().description)
+      utools.hideMainWindow()
+    } else if (e.key === 't') {
+      utools.copyText(getSelectedItem().title)
+      utools.hideMainWindow()
+    }
   }
 })
 
