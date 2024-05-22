@@ -139,7 +139,7 @@ class ChromeTab extends AbstractListTemplate {
   }
 
   select(action: Action, item: Tab): void {
-    edge.activateTab(item.window, item.tab)
+    chrome.activateTab(item.window, item.tab)
     utools.hideMainWindow()
   }
 }
