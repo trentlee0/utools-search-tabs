@@ -1,4 +1,4 @@
-import { safari, edge, chrome, Tab } from './script'
+import { safari, edge, chrome, vivaldi, Tab } from './script'
 import {
   templateBuilder,
   NoneTemplate,
@@ -144,6 +144,24 @@ class ChromeTab extends AbstractListTemplate {
   }
 }
 
+class VivaldiTab extends AbstractListTemplate {
+  code = 'search-vivaldi-tab'
+
+  async handler(action: Action, render: ListRenderFunction) {
+    const tabs = await vivaldi.getAllTabs()
+    render(tabs.map((tab) => ({ ...tab, icon: 'icon/vivaldi.png' })))
+  }
+
+  search(action: Action, searchWord: string, render: ListRenderFunction) {
+    render(pinyinSearch(this.$list, searchWord))
+  }
+
+  select(action: Action, item: Tab): void {
+    vivaldi.activateTab(item.window, item.tab)
+    utools.hideMainWindow()
+  }
+}
+
 class OpenSafari implements NoneTemplate {
   code = 'open-safari'
 
@@ -170,6 +188,16 @@ class OpenChrome implements NoneTemplate {
   async enter(action: Action) {
     const url = await utools.readCurrentBrowserUrl()
     chrome.openUrl(url)
+    hideAndOutPlugin()
+  }
+}
+
+class OpenVivaldi implements NoneTemplate {
+  code = 'open-vivaldi'
+
+  async enter(action: Action) {
+    const url = await utools.readCurrentBrowserUrl()
+    vivaldi.openUrl(url)
     hideAndOutPlugin()
   }
 }
@@ -201,6 +229,15 @@ class NewChrome implements NoneTemplate {
   }
 }
 
+class NewVivaldi implements NoneTemplate {
+  code = 'new-vivaldi'
+
+  async enter(action: Action) {
+    vivaldi.newTab()
+    hideAndOutPlugin()
+  }
+}
+
 function getSelectedItem(): ListItem {
   const el = document.querySelector('.list-item-selected')
   const title = el?.querySelector('.list-item-title')?.textContent ?? ''
@@ -225,10 +262,13 @@ window.exports = templateBuilder()
   .mutableList(new SafariTab())
   .mutableList(new EdgeTab())
   .mutableList(new ChromeTab())
+  .mutableList(new VivaldiTab())
   .none(new OpenSafari())
   .none(new OpenEdge())
   .none(new OpenChrome())
+  .none(new OpenVivaldi())
   .none(new NewSafari())
   .none(new NewEdge())
   .none(new NewChrome())
+  .none(new NewVivaldi())
   .build()

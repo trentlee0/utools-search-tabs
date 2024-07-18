@@ -117,6 +117,28 @@ class ChromeCommand extends BrowserCommand {
   }
 }
 
+class VivaldiCommand extends BrowserCommand {
+  newTab(): void {
+    execAppleScript(ch.newTab('Vivaldi'))
+  }
+
+  activateTab(window: number, tab: number): void {
+    execAppleScript(ch.activateTabScript('Vivaldi', window, tab))
+  }
+
+  getAllTabs(): Promise<Tab[]> {
+    return execGetTabs(
+      ch.allTabsScript('Vivaldi', this.SEPARATOR),
+      this.SEPARATOR
+    )
+  }
+
+  openUrl(url: string) {
+    openUrl('Vivaldi', url)
+  }
+}
+
 export const safari = new SafariCommand()
 export const edge = new EdgeCommand()
 export const chrome = new ChromeCommand()
+export const vivaldi = new VivaldiCommand()
