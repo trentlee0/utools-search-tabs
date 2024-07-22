@@ -65,6 +65,24 @@
       ]
     },
     {
+      "code": "search-vivaldi-tab",
+      "icon": "icon/vivaldi.png",
+      "explain": "搜索 Vivaldi 中打开的标签页",
+      "cmds": [
+        "Vivaldi Search Tabs",
+        "Vivaldi 搜索标签页",
+        {
+          "type": "window",
+          "label": "搜索标签页",
+          "match": {
+            "app": [
+              "Vivaldi.app"
+            ]
+          }
+        }
+      ]
+    },
+    {
       "code": "open-safari",
       "icon": "icon/safari.png",
       "explain": "在 Safari 中打开当前页面",
@@ -75,7 +93,8 @@
           "match": {
             "app": [
               "Microsoft Edge.app",
-              "Google Chrome.app"
+              "Google Chrome.app",
+              "Vivaldi.app"
             ]
           }
         }
@@ -92,7 +111,8 @@
           "match": {
             "app": [
               "Safari.app",
-              "Google Chrome.app"
+              "Google Chrome.app",
+              "Vivaldi.app"
             ]
           }
         }
@@ -109,7 +129,26 @@
           "match": {
             "app": [
               "Safari.app",
-              "Microsoft Edge.app"
+              "Microsoft Edge.app",
+              "Vivaldi.app"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "code": "open-vivaldi",
+      "icon": "icon/vivaldi.png",
+      "explain": "在 Vivaldi 中打开当前页面",
+      "cmds": [
+        {
+          "type": "window",
+          "label": "在 Vivaldi 中打开当前页面",
+          "match": {
+            "app": [
+              "Safari.app",
+              "Microsoft Edge.app",
+              "Google Chrome.app"
             ]
           }
         }
@@ -164,6 +203,24 @@
           "match": {
             "app": [
               "Google Chrome.app"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "code": "new-vivaldi",
+      "icon": "icon/vivaldi.png",
+      "explain": "在 Vivaldi 中新建标签页",
+      "cmds": [
+        "Vivaldi New Tab",
+        "Vivaldi 新建标签页",
+        {
+          "type": "window",
+          "label": "新建标签页",
+          "match": {
+            "app": [
+              "Vivaldi.app"
             ]
           }
         }
